@@ -23,8 +23,8 @@ password.  The strategy requires a `verify` callback, which accepts these
 credentials and calls `done` providing a user.
 
 ```js
-passport = require('passport');
-LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport-koa2);
+const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
   function(username, password, done) {

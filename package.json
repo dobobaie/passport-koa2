@@ -1,6 +1,6 @@
 {
   "name": "passport-koa2",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Use passport from koa2",
   "main": "passport-koa2.js",
   "scripts": {

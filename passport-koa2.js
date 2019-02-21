@@ -31,13 +31,15 @@ passport.authenticate = function(strategy, options, callback) {
       };
       callback =
         !callback && typeof options === "function"
-          ? (err, result) => {
-            ctx.status = express.res.statusCode || 200;
-            options(err, result, ctx, express);
+          ? (err, result, credentials, statusCode) => {
+            ctx.status = express.res.statusCode || statusCode || 200;
+            const nerr = statusCode === 400 && !err ? credentials : err;
+            options(nerr, result, ctx, express);
           }
-          : (err, result) => {
-              if (err) return reject(err);
-              ctx.status = express.res.statusCode || 200;
+          : (err, result, credentials, statusCode) => {
+              const nerr = statusCode === 400 && !err ? credentials : err;
+              if (nerr) return reject(nerr);
+              ctx.status = express.res.statusCode || statusCode || 200;
               ctx.body = result;
               resolve(result);
             };
